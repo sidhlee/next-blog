@@ -43,10 +43,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 type PostProps = {
-  postData: PostData
-}
+  postData: PostData;
+};
 
-const Post:React.FC<PostProps> = ({ postData }) => {
+const Post: React.FC<PostProps> = ({ postData }) => {
   return (
     <Layout>
       <Head>
@@ -61,6 +61,5 @@ const Post:React.FC<PostProps> = ({ postData }) => {
       </article>
     </Layout>
   );
-}
-export default Post
-}
+};
+export default Post;
