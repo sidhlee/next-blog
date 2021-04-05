@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Layout, { siteTitle } from '../components/layout';
 import { getSortedPostsData } from '../lib/posts';
 import Date from '../components/date';
+import { GetStaticProps } from 'next';
 
 const StyledHome = styled.section`
   min-height: initial;
@@ -16,7 +17,15 @@ const StyledHome = styled.section`
   }
 `;
 
-export default function Home({ allPostsData }) {
+type HomeProps = {
+  allPostsData: {
+    date: string;
+    title: string;
+    id: string;
+  }[];
+};
+
+const Home: React.FC<HomeProps> = ({ allPostsData }) => {
   return (
     <Layout home>
       <Head>
@@ -52,17 +61,19 @@ export default function Home({ allPostsData }) {
       </StyledHome>
     </Layout>
   );
-}
+};
 
 // This only runs on the server-side, and not going to be included in the bundle!
 // so any functions importing/using node module can be used in here.
 // In production, it only runs at build time. -> no access to query params/HTTP headers!
 // In development, it runs on every request
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   const allPostsData = getSortedPostsData();
   return {
     props: {
       allPostsData,
     },
   };
-}
+};
+
+export default Home;

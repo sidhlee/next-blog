@@ -45,7 +45,14 @@ export function getAllPostIds() {
   });
 }
 
-export async function getPostData(id) {
+export type PostData = {
+  id: string;
+  contentHtml: string;
+  date: string;
+  title: string;
+};
+
+export async function getPostData(id: string): Promise<PostData> {
   const fullPath = path.join(postsDirectory, `${id}.md`);
   const fileContent = fs.readFileSync(fullPath, 'utf8');
   // parse metadata section from the post
@@ -60,6 +67,6 @@ export async function getPostData(id) {
     // add id to the matterResult.data
     id,
     contentHtml,
-    ...matterResult.data,
+    ...(matterResult.data as { date: string; title: string }),
   };
 }

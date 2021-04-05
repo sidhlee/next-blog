@@ -12,7 +12,11 @@ const StyledLayout = styled.div`
 const name = 'Sid Hayoun Lee';
 export const siteTitle = 'Next.js Sample Website';
 
-export default function Layout({ children, home }) {
+type LayoutProps = {
+  home?: boolean;
+};
+
+const Layout: React.FC<LayoutProps> = ({ children, home }) => {
   return (
     <StyledLayout>
       <Head>
@@ -75,4 +79,6 @@ export default function Layout({ children, home }) {
       )}
     </StyledLayout>
   );
-}
+};
+
+export default Layout;

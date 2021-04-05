@@ -1,27 +1,28 @@
+import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import Date from '../../components/date';
 import Layout from '../../components/layout';
-import { getAllPostIds, getPostData } from '../../lib/posts';
+import { getAllPostIds, getPostData, PostData } from '../../lib/posts';
 
-export async function getStaticProps(context) {
+export const getStaticProps: GetStaticProps = async (context) => {
   const {
     params, // contains route parameters (eg. [id].js => { id: idInside[] })
   } = context;
 
   console.log(params);
   // pass post id to access local .md file and parse them into data
-  const postData = await getPostData(params.id);
+  const postData = await getPostData(params.id as string);
 
   return {
     props: {
       postData,
     },
   };
-}
+};
 
 // Export async function "getStaticPaths" from a page that uses dynamic routes, (eg. [id].js),
 // to have Next.js pre-render all paths inside the returned object
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const paths = getAllPostIds();
 
   // getStaticPaths must return an object with following shape:
@@ -39,9 +40,13 @@ export async function getStaticPaths() {
     paths,
     fallback: false, // any path not returned from `getStaticPaths` will show 404 page
   };
+};
+
+type PostProps = {
+  postData: PostData
 }
 
-export default function Post({ postData }) {
+const Post:React.FC<PostProps> = ({ postData }) => {
   return (
     <Layout>
       <Head>
@@ -56,4 +61,6 @@ export default function Post({ postData }) {
       </article>
     </Layout>
   );
+}
+export default Post
 }

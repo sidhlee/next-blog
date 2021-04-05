@@ -1,4 +1,5 @@
 import { createGlobalStyle, css } from 'styled-components';
+import { AppProps } from 'next/app';
 
 const utilCss = css`
   .heading-xxl {
@@ -161,7 +162,7 @@ const GlobalStyle = createGlobalStyle`
   ${utilCss}
 `;
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <GlobalStyle />

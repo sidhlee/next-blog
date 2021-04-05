@@ -76,3 +76,12 @@ export async function getStaticProps(context) {
   };
 }
 ```
+
+## TypeScript
+
+To enable TypeScript with Next.js, simply add an empty `tsconfig.json` file in the project root, then restart the dev server.
+
+```bash
+touch tsconfig.json
+npm run dev
+```
